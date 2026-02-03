@@ -149,13 +149,16 @@ export const config = {
                         </div>
                         <div className="w-full lg:w-1/2">
                             <p className="text-gray-300 mb-4">
-                                When a user sends a standard request (e.g., <code>GET /dashboard</code>), the Nginx Proxy acts as a strict sanitizer.
+                                When a user sends a standard request (e.g., <code>GET /dashboard</code>), the Nginx Proxy acts as a strict <span className="text-neon-blue font-bold">sanitizer</span>.
                             </p>
                             <p className="text-gray-300 mb-4">
-                                <strong>Sanitization ("Swallowing"):</strong> If a user tries to spoof the trust header (<code>x-middleware-rewrite</code>), Nginx "swallows" (overwrites) it. This ensures that <em>only</em> Nginx can stamp the request.
+                                <strong>Sanitization ("Swallowing"):</strong> If a user tries to spoof the <strong>Control Header</strong> (<code className="text-neon-orange">x-middleware-rewrite</code>), Nginx "swallows" (overwrites) it. This ensures that <em>only</em> Nginx can stamp the request.
+                            </p>
+                            <p className="text-gray-400 text-sm mb-4 border-l-2 border-gray-600 pl-3">
+                                <em>Crucial Detail:</em> Proxy servers typically only strip headers explicitly defined as <span className="text-red-400 font-bold">internal</span> or <span className="text-red-400 font-bold">control</span> headers (like this one). Normal headers (User-Agent, Cookies, etc.) are allowed to pass through freely.
                             </p>
                             <div className="bg-black/50 p-3 rounded border border-gray-700 text-sm font-mono text-gray-400">
-                                <strong>Result:</strong> Next.js sees the valid stamp, runs the Middleware, sees no token, and correctly blocks the user (307 Redirect).
+                                <strong>Result:</strong> Assuming the user has not logged in, the proxy scrubs the request of any injected <span className="text-red-400 font-bold">internal control</span> headers. The internal server then correctly rejects the request and redirects the user to the front page.
                             </div>
                         </div>
                     </div>

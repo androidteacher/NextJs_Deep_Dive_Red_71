@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # SINGLE MULTIHOMED CONTAINER
+  # Runs both Nginx (Public) and Next.js (Private)
+  app:
+    build: .
+    container_name: flag-red71-app
+    image: joshbeck2024/ctf-cve-2025-29927-flag-red71
+    restart: always
+    ports:
+      - "9052:80"
+    networks:
+      public_net:
+      private_net:
+        ipv4_address: 10.0.0.2
+        aliases:
+          - internal-api-backend.local
+
+networks:
+  public_net:
+    driver: bridge
+  private_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.0.0/29
+          gateway: 10.0.0.1

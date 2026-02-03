@@ -1,0 +1,23 @@
+# Task Checklist
+
+- [x] Design Auth Architecture
+    - [x] Simple JSON-based user store (`users.json`) or SQLite
+    - [x] API Route: `/api/auth/register`
+    - [x] API Route: `/api/auth/login`
+    - [x] JWT or Session Cookie implementation
+- [x] Refactor Frontend
+    - [x] Update `/register` to actually POST to API
+    - [x] Update `/login` to actually POST to API and handle errors
+- [x] Refactor Middleware
+    - [x] Verify JWT/Cookie validity instead of just checking presence
+    - [x] Maintain RBAC: User -> Bitcoin, Admin -> Dashboard
+- [x] Documentation
+    - [x] Remove `proxyauth.md` reference or update it to "Legacy"
+    - [x] Update `walkthrough.md`
+- [x] Verification
+    - [x] Register new user -> Login -> Access Bitcoin -> Fail Dashboard
+    - [x] Verify CVE bypass still works for Dashboard
+- [x] Source Code Review Page
+    - [x] Create `app/source/page.tsx`
+    - [x] Add Global Navigation Link
+    - [x] Rebuild and Verify
